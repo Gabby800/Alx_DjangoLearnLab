@@ -25,7 +25,7 @@ def run_queries():
 
     # 3. Retrieve the librarian for a library
     try:
-        librarian = Librarian.objects.get(library__name=library_name)
+        librarian = Librarian.objects.get(library=library)
         print("\nLibrarian of", library_name + ":", librarian.name)
     except Librarian.DoesNotExist:
         print("Librarian not found")
