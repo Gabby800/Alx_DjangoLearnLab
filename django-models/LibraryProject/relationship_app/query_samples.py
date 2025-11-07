@@ -31,6 +31,5 @@ def run_queries():
         print("Librarian not found")
 
 
-# Run the function when executed directly
-if __name__ == "__main__":
-    run_queries()
+
+
