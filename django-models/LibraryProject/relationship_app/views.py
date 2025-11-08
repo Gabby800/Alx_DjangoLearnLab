@@ -1,10 +1,8 @@
-from django.http import HttpResponse
 from django.views.generic.detail import DetailView
-from .models import Book
-from .models import Library
+from .models import Book, Library
 from django.shortcuts import render
 
-def book_list(request):
+def list_book(request):
     books = Book.objects.all()
     return render(request, "relationship_app/list_books.html", {"books": books})
 
