@@ -4,6 +4,7 @@ from .models import Library
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
+from django.contrib.auth.views import LoginView, LogoutView
 
 def list_books(request):
     books = Book.objects.all()
@@ -29,19 +30,10 @@ def register_view(request):
 
 
 # LOGIN VIEW
-def login_view(request):
-    if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect("list_books")
-    else:
-        form = AuthenticationForm()
-    return render(request, "relationship_app/login.html", {"form": form})
+class CustomLoginView(LoginView):
+    template_name = "relationship_app/login.html"
 
 
 # LOGOUT VIEW
-def logout_view(request):
-    logout(request)
-    return render(request, "relationship_app/logout.html")
+class CustomLogoutView(LogoutView):
+    template_name = "relationship_app/logout.html"
