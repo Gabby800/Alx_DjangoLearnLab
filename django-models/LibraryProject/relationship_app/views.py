@@ -1,9 +1,8 @@
 from django.http import HttpResponse
-from django.views.generic import DetailView
+from django.views.generic.detail import DetailView
 from .models import Book
 from .models import Library
 from django.shortcuts import render
-
 
 def book_list(request):
     books = Book.objects.all()
@@ -15,17 +14,3 @@ class LibraryDetailView(DetailView):
     context_object_name = "library"
 
 
-# Function-Based View
-def book_list(request):
-    books = Book.objects.all()
-
-    output = ""
-    for book in books:
-        output += f"{book.title} - {book.author.name}\n"
-
-    return HttpResponse(output, content_type="text/plain")
-
-class LibraryDetailView(DetailView):
-    model = Library
-    template_name = "library_detail.html"
-    context_object_name = "library"
