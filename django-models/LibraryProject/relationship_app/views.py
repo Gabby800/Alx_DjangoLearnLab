@@ -39,6 +39,7 @@ class CustomLoginView(LoginView):
 # LOGOUT VIEW
 class CustomLogoutView(LogoutView):
     template_name = "relationship_app/logout.html"
+
 # --- role helpers -------------------------------------------------
 def is_admin(user):
     return hasattr(user, "profile") and user.profile.role == "Admin"
@@ -49,7 +50,7 @@ def is_librarian(user):
 def is_member(user):
     return hasattr(user, "profile") and user.profile.role == "Member"
 
-# --- role-based views ---------------------------------------------
+
 @login_required
 @user_passes_test(is_admin)
 def admin_view(request):
