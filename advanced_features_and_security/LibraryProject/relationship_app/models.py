@@ -45,7 +45,6 @@ class Librarian(models.Model):
 
 
 class CustomUserManager(BaseUserManager):
-    # Create regular user
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError("Users must have an email address")
@@ -67,7 +66,6 @@ class CustomUserManager(BaseUserManager):
             raise ValueError("Superuser must have is_superuser=True.")
 
         return self.create_user(email, password, **extra_fields)
-
 
 class CustomUser(AbstractUser):
     username = None  
@@ -99,3 +97,5 @@ class UserProfile(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
+    else:
+        instance.userprofile.save()
