@@ -27,9 +27,11 @@ DEBUG = False
 
 ALLOWED_HOSTS = []
 
+SECURE_SSL_REDIRECT = True
 SECURE_BROWSER_XSS_FILTER = True           
 X_FRAME_OPTIONS = 'DENY'                   
 SECURE_CONTENT_TYPE_NOSNIFF = True         
+SECURE_SSL_REDIRECT = True
 
 
 # Cookies only over HTTPS (set True in production with HTTPS)
