@@ -23,14 +23,31 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-42!@so6=i6v$5y-zprxhv^$*7nid&fc-^cza-=#zj(+(p9==a$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
+
+SECURE_BROWSER_XSS_FILTER = True           
+X_FRAME_OPTIONS = 'DENY'                   
+SECURE_CONTENT_TYPE_NOSNIFF = True         
+
+
+# Cookies only over HTTPS (set True in production with HTTPS)
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# HSTS (HTTP Strict Transport Security) — enable once HTTPS is working
+SECURE_HSTS_SECONDS = 31536000  # 1 year; set to 0 while testing
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'csp'
     'bookshelf',
     'relationship_app',
     'django.contrib.admin',
@@ -51,7 +68,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware'
 ]
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", 'https://cdnjs.cloudflare.com')  # add trusted CDNs
+CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
+CSP_IMG_SRC = ("'self'", 'data:')
+CSP_FONT_SRC = ("'self'", 'https://fonts.gstatic.com')
+
 
 ROOT_URLCONF = 'LibraryProject.urls'
 
