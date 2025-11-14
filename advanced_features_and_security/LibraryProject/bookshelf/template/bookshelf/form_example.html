@@ -1,19 +1,17 @@
-{% extends "base.html" %}
-{% block content %}
-  <h1>{{ title }}</h1>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    <div>
-      {{ form.title.label_tag }}<br>
-      {{ form.title }}          {# Django escapes field values by default #}
-      {{ form.title.errors }}
-    </div>
-    <div>
-      {{ form.author.label_tag }}<br>
-      {{ form.author }}
-      {{ form.author.errors }}
-    </div>
-    <button type="submit">Save</button>
-  </form>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example Form</title>
+</head>
+<body>
+    <h1>Example Form</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>
