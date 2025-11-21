@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'api',
+    'rest_framework.authtoken',
     
 ]
 
@@ -77,8 +78,12 @@ WSGI_APPLICATION = 'api_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'api_db',          
+        'USER': 'root',             
+        'PASSWORD': 'Gabigabi@1',     
+        'HOST': 'localhost',                   
+        'PORT': '3306',
     }
 }
 
