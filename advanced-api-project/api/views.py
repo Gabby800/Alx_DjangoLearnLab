@@ -20,28 +20,6 @@ class BookCreateView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
-
-class BookUpdateView(generics.UpdateAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [IsAuthenticated]
-
-    def perform_update(self, serializer):
-        serializer.save(last_updated_by=self.request.user)
-
-class BookDeleteView(generics.DestroyAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [IsAuthenticated]
-
-
-class BookCreateView(generics.CreateAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny] 
-
-    def perform_create(self, serializer):
         print("Creating new book:", serializer.validated_data)
         serializer.save()
 
@@ -49,7 +27,7 @@ class BookCreateView(generics.CreateAPIView):
 class BookUpdateView(generics.UpdateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def perform_update(self, serializer):
         print("Updating book:", serializer.validated_data)
@@ -62,3 +40,13 @@ class BookUpdateView(generics.UpdateAPIView):
                 raise ValueError("Publication year cannot be in the future.")
 
         serializer.save()
+
+class BookDeleteView(generics.DestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
+
+
+
+
+    
