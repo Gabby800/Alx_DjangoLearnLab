@@ -1,0 +1,50 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<h1>All Posts</h1>
+
+{% for post in posts %}
+    <div class="post-card">
+        <h2><a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a></h2>
+        <p>{{ post.content|truncatewords:30 }}</p>
+        <p><small>By {{ post.author }} on {{ post.published_date }}</small></p>
+    </div>
+{% empty %}
+    <p>No posts available.</p>
+
+    <!-- to add comment -->
+
+<h2>{{ post.title }}</h2>
+<p>{{ post.content }}</p>
+
+<hr>
+<h3>Comments</h3>
+{% for comment in post.comments.all %}
+    <div class="comment">
+        <strong>{{ comment.author.username }}</strong> said:
+        <p>{{ comment.content }}</p>
+        <small>{{ comment.created_at|date:"M d, Y H:i" }}</small>
+
+        {% if comment.author == user %}
+            <a href="{% url 'edit-comment' comment.pk %}">Edit</a> |
+            <a href="{% url 'delete-comment' comment.pk %}">Delete</a>
+        {% endif %}
+    </div>
+{% empty %}
+    <p>No comments yet.</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+    <h4>Leave a Comment</h4>
+    <form method="post" action="{% url 'add-comment' post.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post Comment</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Login</a> to leave a comment.</p>
+{% endif %}
+
+{% endfor %}
+
+<a href="{% url 'post-create' %}" class="btn">Create New Post</a>
+{% endblock %}
