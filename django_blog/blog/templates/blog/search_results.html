@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Search Results</h2>
+
+<form method="get" action="{% url 'post-search' %}">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search...">
+    <button type="submit">Search</button>
+</form>
+
+<hr>
+
+{% if query %}
+    <p>Results for: <strong>{{ query }}</strong></p>
+{% endif %}
+
+{% if results %}
+    <ul>
+        {% for post in results %}
+            <li>
+                <a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No posts found.</p>
+{% endif %}
+
+{% endblock %}

@@ -9,4 +9,9 @@
     {{ form.as_p }}
     <button type="submit">Save Post</button>
 </form>
+
+<label for="id_tags_input">Tags:</label>
+{{ form.tags_input }}
+<p><small>Separate multiple tags with commas.</small></p>
+
 {% endblock %}

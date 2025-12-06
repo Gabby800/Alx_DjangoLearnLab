@@ -6,6 +6,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from .models import Post, Profile, Comment
+from django.db.models import Q
+
 
 
 def register(request):
@@ -122,3 +124,21 @@ class CommentDeleteView(DeleteView):
 
     def get_success_url(self):
         return self.object.post.get_absolute_url()
+    
+
+#Implementing search functionality
+def search_posts(request):
+    query = request.GET.get("q")  # The search text from the form
+    results = []
+
+    if query:
+        results = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+           Q(tags__name__icontains=query)   # if using ManyToMany tags
+        ).distinct()
+
+    return render(request, "blog/search_results.html", {
+        "query": query,
+        "results": results
+    })
