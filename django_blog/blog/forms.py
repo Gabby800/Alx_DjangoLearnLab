@@ -33,7 +33,7 @@ class PostForm(forms.ModelForm):
             'tags': TagWidget(attrs={'placeholder': 'Add tags separated by commas'}),
         }
 
-    def __int__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # Optional styling
