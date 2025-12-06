@@ -19,7 +19,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'taggit',
+    "taggit",
     'blog.apps.BlogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
