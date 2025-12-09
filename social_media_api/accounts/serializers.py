@@ -31,10 +31,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
 
-        # Create token
         token, _ = Token.objects.get_or_create(user=user)
 
-        # Attach token to serializer response
         user.token = token.key
         return user
 
