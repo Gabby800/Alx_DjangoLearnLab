@@ -3,7 +3,7 @@ from django.conf import settings
 
 User = settings.AUTH_USER_MODEL
 
-class Post (models.Model):
+class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     title = models.CharField(max_length=225)
     content = models.TextField()
