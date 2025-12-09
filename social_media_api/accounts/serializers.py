@@ -29,7 +29,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
 
-        token = Token.objects(user=user)  
+        token = Token.objects.create(user=user)  
 
         user.token = token.key
         return user
@@ -49,7 +49,7 @@ class LoginSerializer(serializers.Serializer):
         if not user:
             raise serializers.ValidationError("Invalid credentials")
 
-        token = Token.objects(user=user)  
+        token = Token.objects.create(user=user)  
 
         data["user"] = user
         data["token"] = token.key
