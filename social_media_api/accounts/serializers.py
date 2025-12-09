@@ -29,7 +29,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
 
-        token, created = Token.objects.get_or_create(user=user)  # REQUIRED BY AUTOGRADER
+        token = Token.objects(user=user)  
 
         user.token = token.key
         return user
@@ -49,7 +49,7 @@ class LoginSerializer(serializers.Serializer):
         if not user:
             raise serializers.ValidationError("Invalid credentials")
 
-        token, created = Token.objects.get_or_create(user=user)  # REQUIRED BY AUTOGRADER
+        token = Token.objects(user=user)  
 
         data["user"] = user
         data["token"] = token.key
