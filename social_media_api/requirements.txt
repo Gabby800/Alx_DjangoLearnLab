@@ -1,3 +1,7 @@
 django
 djangorestframework
 django-filter
+
+/home/Gabby/Alx_DjangoLearnLab/social_media_api
+social_media_api
+venv
